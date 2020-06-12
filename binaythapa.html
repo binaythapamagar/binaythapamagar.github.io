@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <style type="text/css">
+            .main-header{
+                margin-top: 10px;
+            }
+            .image img{
+                height: 113px;
+                width: 113px;
+            }
+            .title{
+                text-align: right;
+            }
+            .address{
+                text-align: right;
+            }
+            .intro p{
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <section class="main-header">
+                <div class="row">
+                    <div class="col-md-6 image">
+                        <img src="https://avatars3.githubusercontent.com/u/22888073?s=460&u=032f7e228ba715d9c91c47a99faf29919bb2a18a&v=4"></img>
+                    </div>
+                    <div class="col-md-6 title">
+                        <h3>Binay Thapa Magar</h3>
+                        <p>thapa.binay111@gmail.com</p>
+                        <p>Chainpur-9, Chitwan, Nepal</p>
+                    </div>
+                    
+                </div>
+            </section>
+            <section class="intro">
+                <p>I have the drive to develop, implement, and solve problems, am curious about new technologies, innovation, and would like to take initiative and enjoy working in teams. As a person, I am social, humble, forward, and communicative. I have a sense of quality that is result-oriented and triggered by finding new solutions and delivering over.</p>
+            </section>
+            <section id="education"></section>
+            <section id="experience"></section>
+            <section id="skills"></section>
+            <section id="github">
+                <h3>My projects</h3>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row" id="projects"></div>
+                        <button class="btn btn-primary" id="load_more_projects" data-page="2" style="border-radius: 5px;"> Load More</button>
+                    </div>
+                    <div class="col-md-3" style="height: 200px;">
+                        <a class="twitter-timeline" href="https://twitter.com/binay2010?ref_src=twsrc%5Etfw"></a> 
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8">
+                            </script>
+                    </div>    
+                </div>
+            </section>
+
+        </div>
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script>
+            function fetchgitproject(page = 1){
+                fetch(`https://api.github.com/users/binaythapamagar/repos?page=${page}&per_page=3`)
+                .then(res => res.json())
+                .then(res => {
+                    res.map(repo => {
+                        var project = `<div class='col-md-4'><a href='${repo.html_url}'><p>${repo.name}</h3></a><p>${repo.description}</p></div>`
+                        $('#projects').append(project)
+                    });
+                });
+            }
+
+            $(this).ready(function(){
+                fetchgitproject()
+            });
+
+            $('#load_more_projects').click(function(){
+                fetchgitproject($(this).attr('data-page'))
+                $(this).attr('data-page',3)
+            });
+        </script>
+    </body>
+</html>
